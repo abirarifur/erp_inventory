@@ -30,7 +30,13 @@ class DatabaseSeeder extends Seeder
         // \App\Models\ExpenseCategory::factory(1)->create();
         // \App\Models\PaymentType::factory(1)->create();
         // \App\Models\Sms::factory(1)->create();
-        \App\Models\Warehouse::factory(1)->create();
+        // \App\Models\Warehouse::factory(1)->create();
+        // \App\Models\Shop::factory(1)->create();
+        // \App\Models\Supplier::factory(1)->create();
+        \App\Models\Purchase::factory(1)->create();
+
+
+
 
 
 
