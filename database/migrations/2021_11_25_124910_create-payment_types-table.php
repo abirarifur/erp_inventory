@@ -15,7 +15,7 @@ class CreatePaymentTypesTable extends Migration
     {
         Schema::create('payment_types', function (Blueprint $table) {
             $table->id();
-            $table->string('payment_code')->unique();
+            $table->string('payment_type_code')->unique();
             $table->string('payment_type')->unique();
             $table->string('description')->nullable();
             $table->string('company_id');

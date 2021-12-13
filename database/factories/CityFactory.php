@@ -22,9 +22,9 @@ class CityFactory extends Factory
     public function definition()
     {
         return [
-            'city_code' =>  random_int(1, 10),
+            'city_code' =>  1,
             'city_name' => $this->faker->unique()->city,
-            'state_id' => random_int(1, 10),
+            'state_id' => 1,
             'status' => 1,
             'created_by' => '1',
             'system_ip' => '123.123.123.123',

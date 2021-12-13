@@ -13,9 +13,34 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
-        // \App\Models\Country::factory(10)->create();
-        // \App\Models\State::factory(10)->create();
-        \App\Models\City::factory(10)->create();
+        // \App\Models\User::factory(1)->create();
+        // \App\Models\Country::factory(1)->create();
+        // \App\Models\State::factory(1)->create();
+        // \App\Models\City::factory(1)->create();
+        // \App\Models\Company::factory(1)->create();
+        // \App\Models\Color::factory(1)->create();
+        // \App\Models\Size::factory(1)->create();
+        // \App\Models\Unit::factory(1)->create();
+        // \App\Models\Tax::factory(1)->create();
+        // \App\Models\Style::factory(1)->create();
+        // \App\Models\Brand::factory(1)->create();
+        // \App\Models\Role::factory(1)->create();
+        // \App\Models\Category::factory(1)->create();
+        // \App\Models\Subcategory::factory(1)->create();
+        // \App\Models\ExpenseCategory::factory(1)->create();
+        // \App\Models\PaymentType::factory(1)->create();
+        // \App\Models\Sms::factory(1)->create();
+        \App\Models\Warehouse::factory(1)->create();
+
+
+
+
+
+
+
+
+
+
+
     }
 }

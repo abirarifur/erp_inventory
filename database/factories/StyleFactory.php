@@ -2,18 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Country;
+use App\Models\Style;
 use Illuminate\Database\Eloquent\Factories\Factory;
-// use Illuminate\Support\Number;
-class CountryFactory extends Factory
-{
 
+class StyleFactory extends Factory
+{
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Country::class;
+    protected $model = Style::class;
 
     /**
      * Define the model's default state.
@@ -23,8 +22,9 @@ class CountryFactory extends Factory
     public function definition()
     {
         return [
-            'country_code' =>  1,
-            'country_name' => $this->faker->unique()->country,
+            'style_code' =>  1,
+            'style_name' => 'fixed',
+            'company_id' => 1122,
             'status' => 1,
             'created_by' => '1',
             'system_ip' => '123.123.123.123',
