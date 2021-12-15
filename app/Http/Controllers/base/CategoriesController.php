@@ -4,6 +4,7 @@ namespace App\Http\Controllers\base;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoriesController extends Controller
 {
@@ -14,7 +15,11 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        //
+        $allCategory = Category::all();
+        return [
+            'success' => true,
+            'allCategory'=> $allCategory
+        ];
     }
 
     /**
@@ -46,7 +51,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-        //
+
     }
 
     /**
@@ -57,7 +62,11 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singleCategory = Category::where('category_code', $id)->get();
+        return [
+            'success' => true,
+            'singleCategory'=> $singleCategory
+        ];
     }
 
     /**

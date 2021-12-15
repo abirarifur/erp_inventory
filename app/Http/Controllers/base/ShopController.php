@@ -4,9 +4,8 @@ namespace App\Http\Controllers\base;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Brand;
 
-class BrandController extends Controller
+class ShopController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +14,7 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $allBrands = Brand::all();
-        return [
-            'success' => true,
-            'allBrands'=> $allBrands
-        ];
+        //
     }
 
     /**
@@ -51,7 +46,7 @@ class BrandController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -62,11 +57,7 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $singleBrand = Brand::where('brand_code', $id)->get();
-        return [
-            'success' => true,
-            'singleBrand'=> $singleBrand
-        ];
+        //
     }
 
     /**

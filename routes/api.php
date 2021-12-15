@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 // Login route
 Route::post('/login', [LoginController::class, 'login']);
-
+Route::get('/category', [App\Http\Controllers\base\CategoriesController::class, 'index']);
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     //     return $request->user();
     // });
