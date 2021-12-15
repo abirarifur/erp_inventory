@@ -4,7 +4,7 @@ namespace App\Http\Controllers\base;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Models\Color;
 class ColorController extends Controller
 {
     /**
@@ -14,7 +14,8 @@ class ColorController extends Controller
      */
     public function index()
     {
-        //
+        $allColor = Color::all();
+        return $allColor;
     }
 
     /**
@@ -57,7 +58,8 @@ class ColorController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singleColor = Color::where('color_code', $id)->firstOrFail();
+        return $singleColor;
     }
 
     /**

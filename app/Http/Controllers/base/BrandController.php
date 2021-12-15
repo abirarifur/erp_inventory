@@ -15,11 +15,14 @@ class BrandController extends Controller
      */
     public function index()
     {
-        $allBrands = Brand::all();
-        return [
-            'success' => true,
-            'allBrands'=> $allBrands
-        ];
+        $allBrands = Brand::all()->reject(function ($user) {
+            return $user->status === 0;
+        });
+        return $allBrands;
+        // return [
+        //     'success' => true,
+        //     'allBrands'=> $allBrands
+        // ];
     }
 
     /**
@@ -40,7 +43,17 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newBrand = Brand::create([
+            'brand_code' => $request->brand_code,
+            'brand_name' => $request->brand_name,
+            'company_id' => $request->company_id,
+            'created_by' => $request->created_by,
+            'system_ip' => $request->system_ip
+        ]);
+        return [
+            'success' => true,
+            'message' => 'Brand Created Successfully.'
+        ];
     }
 
     /**
@@ -62,11 +75,12 @@ class BrandController extends Controller
      */
     public function edit($id)
     {
-        $singleBrand = Brand::where('brand_code', $id)->get();
-        return [
-            'success' => true,
-            'singleBrand'=> $singleBrand
-        ];
+        $singleBrand = Brand::where('brand_code', $id)->firstOrFail();
+        return $singleBrand;
+        // return [
+        //     'success' => true,
+        //     'singleBrand'=> $singleBrand
+        // ];
     }
 
     /**

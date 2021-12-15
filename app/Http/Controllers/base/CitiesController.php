@@ -4,6 +4,7 @@ namespace App\Http\Controllers\base;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\City;
 
 class CitiesController extends Controller
 {
@@ -14,7 +15,8 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        //
+        $allCity = City::all();
+        return $allCity;
     }
 
     /**
@@ -35,7 +37,7 @@ class CitiesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->ip();
     }
 
     /**
@@ -57,7 +59,8 @@ class CitiesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $singleCity = City::where('city_code', $id)->firstOrFail();
+        return $singleCity;
     }
 
     /**

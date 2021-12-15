@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\base;
+namespace App\Http\Controllers\master;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Category;
 
-class CategoriesController extends Controller
+class PurchaseReturnController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,12 +14,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $allCategory = Category::all();
-        return $allCategory;
-        // return [
-        //     'success' => true,
-        //     'allCategory'=> $allCategory
-        // ];
+        //
     }
 
     /**
@@ -41,7 +35,7 @@ class CategoriesController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -52,7 +46,7 @@ class CategoriesController extends Controller
      */
     public function show($id)
     {
-
+        //
     }
 
     /**
@@ -63,12 +57,7 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $singleCategory = Category::where('category_code', $id)->firstOrFail();
-        return $singleCategory;
-        // return [
-        //     'success' => true,
-        //     'singleCategory'=> $singleCategory
-        // ];
+        //
     }
 
     /**
