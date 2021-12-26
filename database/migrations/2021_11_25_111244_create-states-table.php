@@ -17,8 +17,7 @@ class CreateStatesTable extends Migration
             $table->id();
             $table->string('state_code')->unique();
             $table->string('state_name')->unique();
-            $table->string('country_id');
-            $table->foreign('country_id')->references('country_code')->on('countries');
+            $table->foreignId('country_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

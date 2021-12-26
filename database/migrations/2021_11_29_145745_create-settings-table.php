@@ -44,12 +44,9 @@ class CreateSettingsTable extends Migration
             $table->string('round_off')->nullable();
             $table->string('show_upi_code')->nullable();
             $table->string('domain')->nullable();
-            $table->string('currency_id');
-            $table->foreign('currency_id')->references('currency_code')->on('currencies');
-            $table->string('language_id');
-            $table->foreign('language_id')->references('language_code')->on('languages');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('language_id')->constrained();
+            $table->foreignId('currency_id')->constrained();
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

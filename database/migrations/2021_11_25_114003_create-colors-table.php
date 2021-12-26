@@ -18,10 +18,7 @@ class CreateColorsTable extends Migration
             $table->string('color_code')->unique();
             $table->string('color_name')->unique();
             $table->string('description')->nullable();
-            // $table->string('subcategory_id');
-            // $table->foreign('subcategory_id')->references('subcategory_code')->on('subcategories');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

@@ -18,8 +18,7 @@ class CreateExpCategoriesTable extends Migration
             $table->string('exp_category_code')->unique();
             $table->string('exp_category_name')->unique();
             $table->string('description')->nullable();
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

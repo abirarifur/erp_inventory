@@ -20,14 +20,10 @@ class CreateWarehousesTable extends Migration
             $table->string('email', 100)->unique()->nullable();
             $table->string('phone', 20)->unique()->nullable();
             $table->string('mobile', 20)->unique()->nullable();
-            $table->string('country_id');
-            $table->foreign('country_id')->references('country_code')->on('countries');
-            $table->string('state_id');
-            $table->foreign('state_id')->references('state_code')->on('states');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
-            $table->string('city_id');
-            $table->foreign('city_id')->references('city_code')->on('cities');
+            $table->foreignId('country_id')->constrained();
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('city_id')->constrained();
+            $table->foreignId('company_id')->constrained();
             $table->string('address');
             $table->integer('created_by');
             $table->string('system_ip')->nullable();

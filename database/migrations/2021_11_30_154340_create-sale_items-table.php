@@ -16,13 +16,9 @@ class CreateSaleItemsTable extends Migration
         Schema::create('sale_items', function (Blueprint $table) {
             $table->id();
             $table->string('sale_item_code')->unique();
-            $table->string('sale_id');
-            $table->foreign('sale_id')->references('sale_code')->on('sales');
             $table->string('sale_status');
             $table->float('sale_qty');
             $table->float('price_per_unit');
-            $table->string('tax_id')->nullable();
-            $table->foreign('tax_id')->references('tax_code')->on('tax');
             $table->float('tax_amt')->nullable();
             $table->string('tax_type')->nullable();
             $table->float('discount_amt')->nullable();
@@ -30,14 +26,13 @@ class CreateSaleItemsTable extends Migration
             $table->string('discount_input')->nullable();
             $table->float('unit_total_cost')->nullable();
             $table->float('total_cost')->nullable();
-            $table->string('item_id')->nullable();
-            $table->foreign('item_id')->references('item_code')->on('items');
-            $table->string('shop_id');
-            $table->foreign('shop_id')->references('shop_code')->on('shops');
-            $table->string('warehouse_id');
-            $table->foreign('warehouse_id')->references('warehouse_code')->on('warehouses');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('sale_id')->constrained();
+            $table->unsignedBigInteger('tax_id');
+            $table->foreign('tax_id')->references('id')->on('tax');
+            $table->foreignId('item_id')->constrained();
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('warehouse_id')->constrained();
+            $table->foreignId('shop_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

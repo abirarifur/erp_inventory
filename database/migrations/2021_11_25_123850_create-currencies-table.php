@@ -19,8 +19,7 @@ class CreateCurrenciesTable extends Migration
             $table->string('currency_name')->unique();
             $table->string('currency')->nullable();
             $table->string('symbol')->nullable();
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

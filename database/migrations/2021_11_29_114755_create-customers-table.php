@@ -26,19 +26,14 @@ class CreateCustomersTable extends Migration
             $table->string('gstin')->nullable();
             $table->string('vatin')->nullable();
             $table->string('tax_number')->nullable();
-            $table->string('country_id');
-            $table->foreign('country_id')->references('country_code')->on('countries');
-            $table->string('state_id');
-            $table->foreign('state_id')->references('state_code')->on('states');
-            $table->string('city_id');
-            $table->foreign('city_id')->references('city_code')->on('cities');
+            
+            $table->foreignId('country_id')->constrained();
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('city_id')->constrained();
             $table->string('address');
-            $table->string('shop_id');
-            $table->foreign('shop_id')->references('shop_code')->on('shops');
-            $table->string('warehouse_id');
-            $table->foreign('warehouse_id')->references('warehouse_code')->on('warehouses');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('warehouse_id')->constrained();
+            $table->foreignId('shop_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

@@ -17,8 +17,8 @@ class CreateCitiesTable extends Migration
             $table->id();
             $table->string('city_code')->unique();
             $table->string('city_name')->unique();
-            $table->string('state_id');
-            $table->foreign('state_id')->references('state_code')->on('states');
+            $table->foreignId('country_id')->constrained();
+            $table->foreignId('state_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

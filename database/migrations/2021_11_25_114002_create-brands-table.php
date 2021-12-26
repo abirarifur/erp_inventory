@@ -17,8 +17,7 @@ class CreateBrandsTable extends Migration
             $table->id();
             $table->string('brand_code')->unique();
             $table->string('brand_name')->unique();
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

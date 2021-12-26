@@ -20,12 +20,9 @@ class CreatePurchasePaymentsTable extends Migration
             $table->float('payment_amt');
             $table->string('payment_note')->nullable();
             $table->date('payment_date');
-            $table->string('purchase_id');
-            $table->foreign('purchase_id')->references('purchase_code')->on('purchases');
-            $table->string('warehouse_id');
-            $table->foreign('warehouse_id')->references('warehouse_code')->on('warehouses');
-            $table->string('company_id');
-            $table->foreign('company_id')->references('company_code')->on('companies');
+            $table->foreignId('purchase_id')->constrained();
+            $table->foreignId('warehouse_id')->constrained();
+            $table->foreignId('company_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);

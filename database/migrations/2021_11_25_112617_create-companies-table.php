@@ -25,12 +25,9 @@ class CreateCompaniesTable extends Migration
             $table->string('gst_no')->nullable();
             $table->string('vat_no')->nullable();
             $table->string('pan_no')->nullable();
-            $table->string('country_id');
-            $table->foreign('country_id')->references('country_code')->on('countries');
-            $table->string('state_id');
-            $table->foreign('state_id')->references('state_code')->on('states');
-            $table->string('city_id');
-            $table->foreign('city_id')->references('city_code')->on('cities');
+            $table->foreignId('country_id')->constrained();
+            $table->foreignId('state_id')->constrained();
+            $table->foreignId('city_id')->constrained();
             $table->integer('created_by');
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);
