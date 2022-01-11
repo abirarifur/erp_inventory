@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\base;
 
-use App\Http\Controllers\Controller;
+use App\Models\State;
+use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class StatesController extends Controller
 {
@@ -14,7 +18,9 @@ class StatesController extends Controller
      */
     public function index()
     {
-        //
+        $allStates= State::all();
+        $allCountries= Country::select('id','country_name')->get();
+        return response()->json(['allStates'=>$allStates,'allCountries'=>$allCountries], 200);
     }
 
     /**
@@ -35,7 +41,38 @@ class StatesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = Validator::make($request->all(),[
+            "state_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:states',
+            "country_id"     => 'required|exists:countries,id',
+            "system_ip"     => 'required|string',
+        ],);
+        if ($validated->fails())
+        {return $validated->errors();}
+        $getLastState = State::select('state_code')->orderBy('id', 'desc')->first();
+        if($getLastState){
+            $get_numbers = str_replace("STA","",$getLastState->state_code);
+            $increase_number = $get_numbers+1;
+            $get_new_number = str_pad($increase_number,3,0,STR_PAD_LEFT);
+            $state_code = "STA".$get_new_number;
+            State::create([
+                'state_code' => $state_code,
+                'state_name' => request()->state_name,
+                'country_id' => request()->country_id,
+                'system_ip' => request()->system_ip,
+                'created_by' => request()->user()->id
+            ]);
+            $allStates= State::all();
+            return response()->json(["success" => "State Added Successfully",'allStates'=>$allStates], 201);
+        }else{
+            State::create([
+                'state_code' => "STA001",
+                'state_name' => request()->state_name,
+                'system_ip' => request()->system_ip,
+                'created_by' => request()->user()->id
+            ]);
+            $allStates= State::all();
+            return response()->json(["success" => "State Added Successfully",'allStates'=>$allStates], 201);
+        }
     }
 
     /**
@@ -57,7 +94,20 @@ class StatesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $getState = State::find($id);
+        if($getState){
+            if($getState->status == 1){
+                $getState->update([
+                    'status'=>0
+                ]);
+            }else{
+                $getState->update([
+                    'status'=>1
+                ]);
+            }
+            $allStates= State::all();
+            return response()->json(["success" => "State status changed",'allStates'=>$allStates], 201);
+        }
     }
 
     /**
@@ -69,7 +119,25 @@ class StatesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = Validator::make($request->all(),[
+            "state_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:states,state_name,'.$id,
+            "country_id"     => 'required|exists:countries,id',
+            "system_ip"     => 'required|string',
+        ],);
+        if ($validated->fails())
+        {return $validated->errors();}
+        $getLastState = Country::find($id);
+        if($getLastState){
+            $getLastState->update([
+                'state_name' => request()->country_name,
+                'country_id' => request()->country_id,
+                'system_ip' => request()->system_ip,
+                'created_by' => request()->user()->id
+            ]);
+        }else{
+        }
+        $allStates= State::all();
+        return response()->json(["success" => "State Updated Successfully",'allStates'=>$allStates], 201);
     }
 
     /**
@@ -80,6 +148,13 @@ class StatesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getState = State::find($id);
+        if($getState){
+            $getState->delete();
+            $allStates= State::all();
+            return response()->json(["success" => "State Deleted Successfully",'allStates'=>$allStates], 201);
+        }else{
+            return response()->json(["error" => "State not found"], 201);
+        }
     }
 }

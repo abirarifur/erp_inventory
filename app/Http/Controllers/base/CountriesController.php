@@ -117,7 +117,7 @@ class CountriesController extends Controller
     public function update(Request $request, $id)
     {
         $validated = Validator::make($request->all(),[
-            "country_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:countries',
+            "country_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:countries,country_name,'.$id,
             "system_ip"     => 'required|string',
         ],);
         if ($validated->fails())

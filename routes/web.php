@@ -18,6 +18,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/password', function () {
-    return bcrypt('87654321');
+    // return bcrypt('razibAbir');
     // return Hash::make('ab');
 });
