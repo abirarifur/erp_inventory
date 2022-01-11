@@ -41,7 +41,7 @@ class CreatePurchaseItemReturnTable extends Migration
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

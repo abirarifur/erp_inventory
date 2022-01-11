@@ -26,7 +26,6 @@ class CreateCustomersTable extends Migration
             $table->string('gstin')->nullable();
             $table->string('vatin')->nullable();
             $table->string('tax_number')->nullable();
-            
             $table->foreignId('country_id')->constrained();
             $table->foreignId('state_id')->constrained();
             $table->foreignId('city_id')->constrained();
@@ -38,7 +37,7 @@ class CreateCustomersTable extends Migration
             $table->string('system_ip')->nullable();
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

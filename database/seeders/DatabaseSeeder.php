@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(UsersTableSeeder::class);
         // \App\Models\User::factory(1)->create();
         // \App\Models\Country::factory(1)->create();
         // \App\Models\State::factory(1)->create();
@@ -35,7 +36,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\Supplier::factory(1)->create();
         // \App\Models\Purchase::factory(1)->create();
         // \App\Models\Item::factory(1)->create();
-        \App\Models\Expense::factory(1)->create();
+        // \App\Models\Expense::factory(1)->create();
 
 
 

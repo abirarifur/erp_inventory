@@ -15,11 +15,11 @@ class LoginController extends Controller
             throw new AuthenticationException();
         }
     }
-    public function logout()
+    public function logout(Request $request)
     {
-        if(auth()->check())
-        {
-            auth()->logout();
-        }
+        auth()->guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return response()->json(['success' => 'Logout Successfully'], 200);
     }
 }

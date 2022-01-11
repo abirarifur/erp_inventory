@@ -6,6 +6,7 @@ use App\Models\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CountriesController extends Controller
 {
@@ -38,11 +39,13 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            "country_name" => ['required', 'string'],
-            "system_ip" => ['required', 'string'],
-        ]);
-        $getLastCountry = Country::select('country_code')->orderBy('id', 'desc')->limit(1)->first();
+        $validated = Validator::make($request->all(),[
+            "country_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:countries',
+            "system_ip"     => 'required|string',
+        ],);
+        if ($validated->fails())
+        {return $validated->errors();}
+        $getLastCountry = Country::select('country_code')->orderBy('id', 'desc')->first();
         if($getLastCountry){
             $get_numbers = str_replace("CNT","",$getLastCountry->country_code);
             $increase_number = $get_numbers+1;
@@ -88,7 +91,20 @@ class CountriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $getCountry = Country::find($id);
+        if($getCountry){
+            if($getCountry->status == 1){
+                $getCountry->update([
+                    'status'=>0
+                ]);
+            }else{
+                $getCountry->update([
+                    'status'=>1
+                ]);
+            }
+            $allCountries= Country::all();
+            return response()->json(["success" => "Country status changed",'allCountries'=>$allCountries], 201);
+        }
     }
 
     /**
@@ -100,10 +116,12 @@ class CountriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        request()->validate([
-            "country_name" => ['required', 'string'],
-            "system_ip" => ['required', 'string'],
-        ]);
+        $validated = Validator::make($request->all(),[
+            "country_name"  => 'required|max:255|regex:/^[a-zA-ZÑñ\s]+$/|unique:countries',
+            "system_ip"     => 'required|string',
+        ],);
+        if ($validated->fails())
+        {return $validated->errors();}
         $getLastCountry = Country::find($id);
         if($getLastCountry){
             $getLastCountry->update([
@@ -125,6 +143,13 @@ class CountriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $getCountry = Country::find($id);
+        if($getCountry){
+            $getCountry->delete();
+            $allCountries= Country::all();
+            return response()->json(["success" => "Country Deleted Successfully",'allCountries'=>$allCountries], 201);
+        }else{
+            return response()->json(["error" => "Country not found"], 201);
+        }
     }
 }
