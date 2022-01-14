@@ -18,7 +18,7 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $allStates= State::all();
+        $allStates= State::with("country")->get();
         $allCountries= Country::select('id','country_name')->get();
         return response()->json(['allStates'=>$allStates,'allCountries'=>$allCountries], 200);
     }
@@ -61,16 +61,17 @@ class StatesController extends Controller
                 'system_ip' => request()->system_ip,
                 'created_by' => request()->user()->id
             ]);
-            $allStates= State::all();
+            $allStates= State::with("country")->get();
             return response()->json(["success" => "State Added Successfully",'allStates'=>$allStates], 201);
         }else{
             State::create([
                 'state_code' => "STA001",
                 'state_name' => request()->state_name,
+                'country_id' => request()->country_id,
                 'system_ip' => request()->system_ip,
                 'created_by' => request()->user()->id
             ]);
-            $allStates= State::all();
+            $allStates= State::with("country")->get();
             return response()->json(["success" => "State Added Successfully",'allStates'=>$allStates], 201);
         }
     }
@@ -105,7 +106,7 @@ class StatesController extends Controller
                     'status'=>1
                 ]);
             }
-            $allStates= State::all();
+            $allStates= State::with("country")->get();
             return response()->json(["success" => "State status changed",'allStates'=>$allStates], 201);
         }
     }
@@ -126,17 +127,17 @@ class StatesController extends Controller
         ],);
         if ($validated->fails())
         {return $validated->errors();}
-        $getLastState = Country::find($id);
+        $getLastState = State::find($id);
         if($getLastState){
             $getLastState->update([
-                'state_name' => request()->country_name,
+                'state_name' => request()->state_name,
                 'country_id' => request()->country_id,
                 'system_ip' => request()->system_ip,
                 'created_by' => request()->user()->id
             ]);
         }else{
         }
-        $allStates= State::all();
+        $allStates= State::with("country")->get();
         return response()->json(["success" => "State Updated Successfully",'allStates'=>$allStates], 201);
     }
 
@@ -151,7 +152,7 @@ class StatesController extends Controller
         $getState = State::find($id);
         if($getState){
             $getState->delete();
-            $allStates= State::all();
+            $allStates= State::with("country")->get();
             return response()->json(["success" => "State Deleted Successfully",'allStates'=>$allStates], 201);
         }else{
             return response()->json(["error" => "State not found"], 201);
