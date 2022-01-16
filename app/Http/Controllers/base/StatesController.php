@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\base;
 
+use App\Models\City;
 use App\Models\State;
 use App\Models\Country;
 use Illuminate\Http\Request;
@@ -84,7 +85,8 @@ class StatesController extends Controller
      */
     public function show($id)
     {
-        //
+        $allCities = City::select('id','city_name')->where('state_id',$id)->get();
+        return response()->json(['allCities'=>$allCities], 200);
     }
 
     /**
