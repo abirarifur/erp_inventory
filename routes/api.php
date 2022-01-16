@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\base\CitiesController;
 use App\Http\Controllers\base\StatesController;
+use App\Http\Controllers\base\CompanyController;
 use App\Http\Controllers\base\CountriesController;
 
 /*
@@ -36,4 +37,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('countries', CountriesController::class);
     Route::resource('states', StatesController::class);
     Route::resource('cities', CitiesController::class);
+    Route::resource('companies', CompanyController::class);
 });

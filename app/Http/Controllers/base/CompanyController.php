@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\base;
 
-use App\Http\Controllers\Controller;
+use App\Models\Country;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
@@ -14,7 +15,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $allCountries= Country::select('id','country_name')->get();
+        return response()->json(['allCountries'=>$allCountries], 200);
     }
 
     /**
